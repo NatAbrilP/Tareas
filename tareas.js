@@ -18,8 +18,20 @@ module.exports = moduloTareas = {
     },
     
     guardarJSON : function(info){
-    let nuevoJSON = JSON.stringify(info);//convierte objeto en JSON
-    fs.writeFileSync(this.archivo, nuevoJSON, 'utf-8')
+        let nuevoJSON = JSON.stringify(info);
+        fs.writeFileSync(this.archivo,nuevoJSON,'utf-8');
+        return console.log('El JSON ha sido guardado exitosamente')
+    },
+    deshacer : function(){
+        let tareas = this.leerJSON()
+        tareas.pop()
+        this.guardarJSON(tareas)
+    },
+    buscarTarea : function(busqueda){
+        let listaDeTareas = this.leerJSON();
+        let tareasFiltradas = listaDeTareas.filter(function(tarea){
+            return tarea.titulo.toLowerCase().includes(busqueda.toLowerCase())
+        })
+        return tareasFiltradas
     }
-
 }
